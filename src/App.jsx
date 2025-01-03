@@ -5,7 +5,7 @@ function App() {
 	return (
 		<div className="App">
 			<BioData
-				name="Sr Setu"
+				name="shakib"
 				age={32}
 				mobile="+88123123542354354"
 				occupation="Software Developer"
@@ -13,7 +13,7 @@ function App() {
 				interests={["Reading", "Chess", "Traveling", "Violine"]}
 			/>
 			<BioData
-				name="Mahir Asief"
+				name="Shakil"
 				age={28}
 				occupation="Software Developer"
 				skills={["React", "Redux"]}

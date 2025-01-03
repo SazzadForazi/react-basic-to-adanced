@@ -49,7 +49,7 @@ Git Workflow for React Project
   git checkout -b class-1-introduction-to-react
 
 - Add files or code for the branch:
-  echo "<h2>Class 1: Introduction to React</h2>" > class1.html
+  "echo "<h2>Class 1: Introduction to React</h2>" > class1.html"
 
 - Stage and commit changes:
   git add .

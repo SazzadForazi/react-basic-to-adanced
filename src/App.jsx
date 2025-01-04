@@ -1,40 +1,43 @@
 import "./App.css"
-import MessayTernary from "./MessyTernary";
 
-export default function App() {
-  function Item({ name, isPacked }) {
-    // type1:
-    // if (isPacked) {
-    //   // return <li className="item">{name}✅</li>;
-    //   return null;
-    // }
-    // return <li className="item">{name}❌</li>;
-
-// type2:
-    // return <li className="item">{name}{isPacked ? "✅": null}</li>;
-
-// type3:
-   return <li>{name}{isPacked && "✅"}</li>
-
-  }
+const App = () => {
+  const people = [{
+    id: 0,
+    name: 'Creola Katherine Johnson',
+    profession: 'mathematician',
+  }, {
+    id: 1,
+    name: 'Mario José Molina-Pasquel Henríquez',
+    profession: 'chemist',
+  }, {
+    id: 2,
+    name: 'Mohammad Abdus Salam',
+    profession: 'physicist',
+  }, {
+    id: 3,
+    name: 'Percy Lavon Julian',
+    profession: 'chemist',  
+  }, {
+    id: 4,
+    name: 'Subrahmanyan Chandrasekhar',
+    profession: 'astrophysicist',
+  }];
+  const chemists = people.filter((person) => person.profession === 'chemist');
+  console.log(chemists);
   return (
-    <section>
-    <h1>Sally Rides Packing List</h1>
-    <ul>
-      <Item 
-        isPacked={true} 
-        name="Space suit" 
-      />
-      <Item 
-        isPacked={true} 
-        name="Helmet with a golden leaf" 
-      />
-      <Item 
-        isPacked={false} 
-        name="Photo of Tam" 
-      />
-    </ul>
-    <MessayTernary user={true} isAdmin={true} isGuest={false}/>
-  </section>
-  )
-}
+   <>
+   <ul>
+   {/* {people.map((person) => (
+    <li key={person.id}>{person.name}</li>
+   ))} */}
+
+
+   {chemists.map((chemist) => (
+    <li key={chemist.id}>{chemist.name}</li>
+   ))}
+   </ul>
+   </>
+  );
+};
+
+export default App; 

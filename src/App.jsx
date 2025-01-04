@@ -1,11 +1,40 @@
 import "./App.css"
+import MessayTernary from "./MessyTernary";
+
 export default function App() {
+  function Item({ name, isPacked }) {
+    // type1:
+    // if (isPacked) {
+    //   // return <li className="item">{name}✅</li>;
+    //   return null;
+    // }
+    // return <li className="item">{name}❌</li>;
+
+// type2:
+    // return <li className="item">{name}{isPacked ? "✅": null}</li>;
+
+// type3:
+   return <li>{name}{isPacked && "✅"}</li>
+
+  }
   return (
-    <div>
-      <h1>App</h1>
-      <p>
-        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque illum sequi mollitia voluptatem eveniet in quae. Accusantium ullam omnis sunt illum incidunt consequuntur, maiores quasi molestias quo quisquam qui delectus numquam voluptates facilis pariatur, deleniti aliquid dolores iste! Repellat eum nemo odio libero voluptates ut, sapiente quibusdam omnis architecto labore?
-      </p>
-    </div>
+    <section>
+    <h1>Sally Rides Packing List</h1>
+    <ul>
+      <Item 
+        isPacked={true} 
+        name="Space suit" 
+      />
+      <Item 
+        isPacked={true} 
+        name="Helmet with a golden leaf" 
+      />
+      <Item 
+        isPacked={false} 
+        name="Photo of Tam" 
+      />
+    </ul>
+    <MessayTernary user={true} isAdmin={true} isGuest={false}/>
+  </section>
   )
 }

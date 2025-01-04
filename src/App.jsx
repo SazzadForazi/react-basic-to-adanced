@@ -1,33 +1,11 @@
-import "./App.css";
-import BioData from "./components/BioData";
-function App() {
-	console.log("I am running");
-	return (
-		<div className="App">
-			<BioData
-				name="shakib"
-				age={32}
-				mobile="+88123123542354354"
-				occupation="Software Developer"
-				skills={["React", "Wp", "Php"]}
-				interests={["Reading", "Chess", "Traveling", "Violine"]}
-			/>
-			<BioData
-				name="Shakil"
-				age={28}
-				occupation="Software Developer"
-				skills={["React", "Redux"]}
-				interests={["Reading", "Chess"]}
-			/>
-		</div>
-	);
+import "./App.css"
+export default function App() {
+  return (
+    <div>
+      <h1>App</h1>
+      <p>
+        Lorem ipsum dolor sit, amet consectetur adipisicing elit. Doloremque illum sequi mollitia voluptatem eveniet in quae. Accusantium ullam omnis sunt illum incidunt consequuntur, maiores quasi molestias quo quisquam qui delectus numquam voluptates facilis pariatur, deleniti aliquid dolores iste! Repellat eum nemo odio libero voluptates ut, sapiente quibusdam omnis architecto labore?
+      </p>
+    </div>
+  )
 }
-
-/**
- * A component must fullfil 3 criteria
- *    1) Component must be a function
- *    2) A Component must return "something"
- *    3) That "something" must be some html-ish code (jsx)
- */
-
-export default App;

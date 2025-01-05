@@ -1,12 +1,13 @@
 import "./App.css"
-// import Counter from "./components/Counter";
-import Todos from "./components/Todos";
+import AddTodo from "./components/AddTodo";
+import TodoList from "./components/TodoList";
 
 function App() {
   return (
     <div>
-      {/* <Counter /> */}
-      <Todos/>
+      <h1>Simple Todo App</h1>
+      <AddTodo/>
+      <TodoList/>
     </div>
   );
 }

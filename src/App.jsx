@@ -1,13 +1,14 @@
-import { useReducer, useState } from "react";
+
 import "./App.css";
 import AddTodo from "./components/AddTodo";
 import TodoList from "./components/TodoList";
 import { initialTasks } from "./data/initialTasks";
 import tasksReducer from "./reducers/taskReducer";
+import { useImmerReducer } from "use-immer";
 
 let nextId = 4;
 function App() {
-  const [tasks, dispatch] = useReducer(tasksReducer, initialTasks);
+  const [tasks, dispatch] = useImmerReducer(tasksReducer, initialTasks);
 
   const handleChangeTask = (updatedTask) => {
     dispatch({

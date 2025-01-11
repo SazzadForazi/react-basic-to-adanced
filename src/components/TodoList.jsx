@@ -1,10 +1,13 @@
+import { useTasks } from "../contexts/TasksContext";
 import Task from "./Task";
-const TodoList = ({ tasks, onChangeTask, onDeleteTask }) => {
+
+const TodoList = () => {
+  const { tasks } = useTasks();
   return (
     <ul>
       {tasks.map((task) => (
         <li key={task.id}>
-          <Task task={task} onChange={onChangeTask} onDelete={onDeleteTask} />
+          <Task task={task} />
         </li>
       ))}
     </ul>

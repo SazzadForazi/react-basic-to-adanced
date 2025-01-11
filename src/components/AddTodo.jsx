@@ -1,25 +1,26 @@
 import { useState } from "react";
+import { useTasks } from "../contexts/TasksContext";
 
-const AddTodo = ({ onAddTask }) => {
+const AddTodo = () => {
   const [text, setText] = useState("");
-
-  const handleAdd = () => {
-    if (text.trim()) {
-      onAddTask(text);
-      setText(""); // Clear input after adding
-    }
-  };
-
+  const { onAddTask } = useTasks();
   return (
-    <div>
+    <>
       <input
         type="text"
-        placeholder="Add Todo"
+        placeholder="Add Task"
         value={text}
         onChange={(e) => setText(e.target.value)}
       />
-      <button onClick={handleAdd}>Add</button>
-    </div>
+      <button
+        onClick={() => {
+          setText("");
+          onAddTask(text);
+        }}
+      >
+        Add
+      </button>
+    </>
   );
 };
 

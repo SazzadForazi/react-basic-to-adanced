@@ -1,33 +1,23 @@
-import { useState } from "react";
+import { useTasks } from "../contexts/TasksContext";
+import TaskContent from "./TaskContent";
 
-const Task = ({ task, onChange, onDelete }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const taskContent = isEditing ? (
-    <>
-      <input
-        type="text"
-        value={task.text}
-        onChange={(e) => onChange({ ...task, text: e.target.value })}
-      />
-      <button onClick={() => setIsEditing(false)}>Save</button>
-    </>
-  ) : (
-    <>
-      {task.text}
-      <button onClick={() => setIsEditing(true)}>Edit</button>
-    </>
-  );
+export default function Task({ task }) {
+  const { onChangeTask, onDeleteTask } = useTasks();
+
   return (
     <>
       <input
         type="checkbox"
         checked={task.done}
-        onChange={() => onChange({ ...task, done: !task.done })}
+        onChange={(e) =>
+          onChangeTask({
+            ...task,
+            done: e.target.checked,
+          })
+        }
       />
-      {taskContent}
-      <button onClick={() => onDelete(task.id)}>Delete</button>
+      <TaskContent task={task} />
+      <button onClick={() => onDeleteTask(task.id)}>Delete</button>
     </>
   );
-};
-
-export default Task;
+}

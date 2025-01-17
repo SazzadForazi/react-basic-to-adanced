@@ -1,43 +1,112 @@
-import { useCallback, useState, useMemo } from "react";
-import "./App.css";
-import OurAppTitles from "./components/OurAppTitles";
-import Button from "./Button";
-import Title from "./components/Title.jsx";
+import { useState, useCallback, useMemo, useEffect } from "react";
 
 function App() {
-  const [count, setCount] = useState(0);
-  const [count2, setCount2] = useState(0);
+  const [todoTitle, setTodoTitle] = useState("");
+  const [todos, setTodos] = useState([]);
+  const [filter, setFilter] = useState("all");
 
-  const increaseHandleClick = useCallback(() => {
-    setCount((pre) => pre + 1);
-  }, []);
+  const filterOption = () => {
+    if (filter === "completed") {
+      return "completed=true";
+    } else if (filter === "pending") {
+      return "completed=false";
+    } else {
+      return "";
+    }
+  };
 
-  const increaseHandleClick2 = useCallback(() => {
-    setCount2((pre) => pre + 5);
-  }, []);
+  const getAllTodos = async () => {
+    const res = await fetch(`http://localhost:4000/todos?${filterOption()}`);
+    const data = await res.json();
+    setTodos(data);
+  };
 
-  const isEven = useMemo(() => {
-    let i = 0;
-    while (i < 1000000000) i++; // Simulate a heavy computation
-    return count % 2 === 0 ? `Counter is Even` : `Counter is Odd`;
-  }, [count]);
+  useEffect(() => {
+    getAllTodos();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [filter]);
 
-  console.log("isEven:", isEven);
-  console.log("App rendered");
+  const submitHandler = async (e) => {
+    e.preventDefault();
+
+    const newTodo = {
+      title: todoTitle,
+      completed: false,
+    };
+
+    // data changes in API
+    await fetch(`http://localhost:4000/todos`, {
+      method: "POST",
+      body: JSON.stringify(newTodo),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    setFilter("all");
+    await getAllTodos();
+    // setTodos([...todos, newTodo])
+
+    setTodoTitle("");
+  };
+
+  const removeHandler = async (todoId) => {
+    await fetch(`http://localhost:4000/todos/${todoId}`, {
+      method: "DELETE",
+    });
+    await getAllTodos();
+    // setTodos(todos.filter((todo) => todo.id !== todoId));
+  };
+
+  const updateHandler = async (todo) => {
+    await fetch(`http://localhost:4000/todos/${todo.id}`, {
+      method: "PUT",
+      body: JSON.stringify({ ...todo, completed: !todo.completed }),
+      headers: {
+        "Content-type": "application/json",
+      },
+    });
+    await getAllTodos();
+  };
 
   return (
-    <div>
-      <h1>Simple Todo App</h1>
-      <OurAppTitles />
-      <hr />
-      <div className="counter-app-1">
-        <Title value={count} />
-        <p>{isEven}</p> {/* Use isEven directly */}
-        <Button clickHandler={increaseHandleClick} />
+    <div className="App">
+      <form onSubmit={submitHandler}>
+        <input
+          type="text"
+          value={todoTitle}
+          onChange={(e) => setTodoTitle(e.target.value)}
+        />
+        <button type="submit">Create Todo</button>
+      </form>
+      <div className="filter-options">
+        <select
+          name=""
+          id=""
+          value={filter}
+          onChange={(e) => setFilter(e.target.value)}
+        >
+          <option value="all">All</option>
+          <option value="completed">Completed</option>
+          <option value="pending">Pending</option>
+        </select>
       </div>
-      <div className="counter-app-1">
-        <Title value={count2} />
-        <Button clickHandler={increaseHandleClick2} />
+      <div className="todo-list">
+        <h2>Todo List</h2>
+        <ul>
+          {todos.map((todo) => (
+            <li key={todo.id}>
+              <input
+                type="checkbox"
+                name=""
+                id=""
+                checked={todo.completed}
+                onChange={() => updateHandler(todo)}
+              />
+              <span>{todo.title}</span>
+              <button onClick={() => removeHandler(todo.id)}>Remove</button>
+            </li>
+          ))}
+        </ul>
       </div>
     </div>
   );

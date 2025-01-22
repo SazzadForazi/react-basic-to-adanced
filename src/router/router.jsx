@@ -8,6 +8,8 @@ import Notes, { action, loader } from "../pages/Notes";
 import PostList from "../pages/PostList";
 import UserList from "../pages/UserList";
 import PostDetails from "../pages/PostDetails";
+import Shop from "../pages/Shop";
+import AddProductForm from "../pages/AddProductForm";
 
 export const router = createBrowserRouter([
   {
@@ -36,6 +38,11 @@ export const router = createBrowserRouter([
         path: "/users",
         element: <UserList />,
       },
+      {
+        path: "/shop",
+        element: <Shop />,
+      },
+      { path: "/add-product", element: <AddProductForm /> },
       {
         path: "/posts/:id",
         element: <PostDetails />,
